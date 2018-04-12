@@ -76,30 +76,19 @@ LEFT JOIN ratings on movies.id = ratings.movie_id
 WHERE ISNULL(ratings.rating);
 /* Complete the following aggregation objectives:
 Get the average rating for a movie */
-
+SELECT AVG(rating) FROM ratings WHERE movie_id = 858;
 /* Get the total ratings for a movie */
-
+SELECT COUNT(rating) FROM ratings WHERE movie_id = 858;
 /* Get the total movies for a genre */
-
+SELECT COUNT(rating) FROM movies WHERE genres LIKE '%action%';
 /* Get the average rating for a user */
-
+SELECT AVG(rating) FROM ratings WHERE user_id = 1;
 /* Find the user with the most ratings */
-
+SELECT user_id, COUNT(rating) AS counter FROM ratings GROUP BY user_id ORDER BY counter DESC LIMIT 1;
 /* Find the user with the highest average rating */
-
+SELECT user_id, AVG(rating) AS rate FROM ratings GROUP BY user_id ORDER BY rate ASC LIMIT 1;
 /* Find the user with the highest average rating with more than 50 reviews */
-
+SELECT user_id, COUNT(rating) AS counter FROM ratings GROUP BY user_id HAVING counter > 50 ORDER BY counter ASC LIMIT 1;
 /* Find the movies with an average rating over 4 */
-
-
-
-
-/* Hard Mode
-Use concat and research about internet movie database to produce a valid url from the imdbid
-Use concat and research about the movie database to produce a valid url from tmdbid
-Get the ratings for The Unusuals and convert the timestamp into a human readable date time
-Using SQL normalize the tags in the tags table. Make them lowercased and replace the spaces with -
-Create a new field on the movies table for the year. Using an update query and a substring method update that column for every movie with the year found in the title column.
-Once you have completed the new year column go through the title column and strip out the year.
-Create a new column in the movies table and store the average review for each and every movie. */
+SELECT movies.title, AVG(ratings.rating) as average FROM movies LEFT JOIN ratings on movies.id = ratings.movie_id GROUP BY movies.title HAVING average > 4;
 
