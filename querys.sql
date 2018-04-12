@@ -65,9 +65,15 @@ SELECT
 	FROM
 	movies
 	LEFT JOIN links on movies.id = links.movie_id
-	WHERE title LIKE '%2005%' && genres LIKE '%comedy%'
+	WHERE movies.title LIKE '%2005%' && movies.genres LIKE '%comedy%';
 /* Find all movies that have no ratings */
-
+SELECT
+movies.title,
+ratings.rating
+FROM 
+movies
+LEFT JOIN ratings on movies.id = ratings.movie_id
+WHERE ISNULL(ratings.rating);
 /* Complete the following aggregation objectives:
 Get the average rating for a movie */
 
@@ -96,3 +102,4 @@ Using SQL normalize the tags in the tags table. Make them lowercased and replace
 Create a new field on the movies table for the year. Using an update query and a substring method update that column for every movie with the year found in the title column.
 Once you have completed the new year column go through the title column and strip out the year.
 Create a new column in the movies table and store the average review for each and every movie. */
+
